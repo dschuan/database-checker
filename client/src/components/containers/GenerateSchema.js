@@ -1,8 +1,6 @@
 import React, {Component} from 'react';
 import {Button} from 'react-bootstrap';
 
-const ScanSchema = require('../../modules/schema-scan');
-
 class GenerateSchema extends Component{
   constructor(props) {
     super(props);
@@ -19,12 +17,18 @@ class GenerateSchema extends Component{
   clickHandler() {
     this.setState({loading: true});
     console.log('click');
-    ScanSchema(this.credentials, (err, res) => {
-      if (res) {
-        this.setState({loading: false, schemaGenerated: true});
-      }
+    fetch('/create-schema', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: this.credentials,
     })
-
+    .then(res => {
+      console.log(res.body);
+      this.setState({loading: false, schemaGenerated: true});
+    })
   }
   renderConfirmation() {
     if (this.state.schemaGenerated) {
