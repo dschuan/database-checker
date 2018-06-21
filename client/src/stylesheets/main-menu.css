@@ -1,0 +1,23 @@
+.menu {
+  padding-top: 40px;
+  width: 15%;
+  background-color: #343d46;
+  color: #c0c5ce;
+  height: 100%;
+}
+
+.menu-item {
+  font-size: 16px;
+  font-family: sans-serif;
+  font-weight: 400;
+  padding: 20px;
+  height: 30px;
+
+}
+.menu-item:hover {
+  background-color: #65737e;
+}
+a {
+  color:#fff;
+  text-decoration: none;
+}

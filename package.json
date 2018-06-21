@@ -1,0 +1,22 @@
+{
+  "name": "database-checker",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "start": "PORT=8888 node ./bin/www"
+  },
+  "dependencies": {
+    "assert": "^1.4.1",
+    "axios": "^0.18.0",
+    "mkdirp": "^0.5.1",
+    "mongodb": "^3.1.0-beta4",
+    "readline-sync": "^1.4.9",
+    "simpl-schema": "^1.5.0",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.9",
+    "express": "~4.16.0",
+    "http-errors": "~1.6.2",
+    "jade": "~1.11.0",
+    "morgan": "~1.9.0"
+  }
+}
