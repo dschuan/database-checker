@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {Button} from 'react-bootstrap';
+import {Link} from 'react-router-dom';
 
 class GenerateSchema extends Component{
   constructor(props) {
@@ -9,15 +10,16 @@ class GenerateSchema extends Component{
     this.state = {
       loading: false,
       schemaGenerated: false,
+      error: false
     }
   }
   componentDidMount(){
-    this.credentials = JSON.parse(this.credentials);
+
   }
   clickHandler() {
     this.setState({loading: true});
-    console.log('click');
-    fetch('/create-schema', {
+    console.log(this.credentials);
+    fetch('/api/create-schema', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -26,13 +28,15 @@ class GenerateSchema extends Component{
       body: this.credentials,
     })
     .then(res => {
-      console.log(res.body);
+      console.log(res.text());
       this.setState({loading: false, schemaGenerated: true});
     })
   }
   renderConfirmation() {
     if (this.state.schemaGenerated) {
       return <p> Schema Generated! </p>
+    } else if (this.state.error) {
+      return <div><p> Error </p> <Link to='/'>Enter your credentials again </Link></div>
     }
   }
   renderLoading() {

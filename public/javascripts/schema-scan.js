@@ -1,7 +1,7 @@
-import renderUrl from './renderUrl';
 const assert = require('assert');
 const MongoClient = require('mongodb').MongoClient;
 const fs = require('fs');
+const renderUrl = require('./renderUrl');
 const getCollectionName = require('./handle-collection-data');
 const buildSchema = require('./format-schema').buildSchema;
 
@@ -184,9 +184,11 @@ const exportSchema = async (schema, collection, dir) => {
 
 // main function to be exported
 module.exports = (async function(credentials) {
+  console.log('rendering URL');
   const url = renderUrl(credentials);
+  console.log(url);
   const dbName = credentials.name;
-  const pathName = '../private/schemas';
+  const pathName = './schemas';
   let client;
   let collections = [];
 
@@ -197,7 +199,7 @@ module.exports = (async function(credentials) {
 
     collections = await db.command({'listCollections': 1});
     collections = getCollectionName(collections);
-
+    let counter = 0;
     for (let i = 0; i < collections.length; i++) {
       const col = collections[i];
       const schema = await buildSchemaFromCollection(db, col);
@@ -205,11 +207,16 @@ module.exports = (async function(credentials) {
     };
     // const test = await
     // buildSchemaFromCollection(db, 'rocketchat_message');
+
   } catch (err) {
     console.log(err.stack);
+  } finally {
+    console.log(done);
+    return 'Done';
   }
 
   if (client) {
     client.close();
   }
+
 });
