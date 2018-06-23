@@ -6,14 +6,10 @@ const router = express.Router();
 /* GET users listing. */
 router.post('/create-schema', function(req, res, next) {
   const credentials = req.body;
-  SchemaScan(credentials, (err, res) => {
-    if (err) {
-      console.log(err);
-      next(err)
-    } else {
-      res.send('Generated');
-    }
-  });
+  SchemaScan(credentials).then(function(callback) {
+    console.log(callback);
+    res.send(callback);
+  })
 });
 
 module.exports = router;

@@ -1,5 +1,6 @@
 .menu {
   padding-top: 40px;
+  margin-right: 30px;
   width: 15%;
   background-color: #343d46;
   color: #c0c5ce;
@@ -20,4 +21,11 @@
 a {
   color:#fff;
   text-decoration: none;
+}
+
+.reset {
+  position: absolute;
+  bottom: 20px;
+  font-size: 16px;
+  margin-left: 5%;
 }

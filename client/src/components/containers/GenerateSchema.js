@@ -2,6 +2,9 @@ import React, {Component} from 'react';
 import {Button} from 'react-bootstrap';
 import {Link} from 'react-router-dom';
 
+import Loading from '../Loading.js';
+import '../../stylesheets/generate-schema.css';
+
 class GenerateSchema extends Component{
   constructor(props) {
     super(props);
@@ -17,7 +20,7 @@ class GenerateSchema extends Component{
 
   }
   clickHandler() {
-    this.setState({loading: true});
+    this.setState({loading: true, schemaGenerated: false, error: false});
     console.log(this.credentials);
     fetch('/api/create-schema', {
       method: 'POST',
@@ -27,8 +30,8 @@ class GenerateSchema extends Component{
       },
       body: this.credentials,
     })
-    .then(res => {
-      console.log(res.text());
+    .then(data => {
+      console.log(data);
       this.setState({loading: false, schemaGenerated: true});
     })
   }
@@ -41,13 +44,13 @@ class GenerateSchema extends Component{
   }
   renderLoading() {
     if (this.state.loading) {
-      return <p> Loading... </p>
+      return <Loading />
     }
   }
   render() {
     return(
-      <div>
-        <Button bsSize='large' onClick={this.clickHandler}>
+      <div className='main'>
+        <Button bsSize='large' bsStyle='primary' onClick={this.clickHandler}>
         Generate Schema </Button>
         {this.renderConfirmation()}
         {this.renderLoading()}

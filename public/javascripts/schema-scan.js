@@ -204,19 +204,20 @@ module.exports = (async function(credentials) {
       const col = collections[i];
       const schema = await buildSchemaFromCollection(db, col);
       await exportSchema(schema, col, pathName);
+      counter++;
+
     };
     // const test = await
     // buildSchemaFromCollection(db, 'rocketchat_message');
-
   } catch (err) {
+    throw err;
     console.log(err.stack);
   } finally {
-    console.log(done);
-    return 'Done';
+    if (client) {
+      client.close();
+    }
+    return 'complete';
   }
 
-  if (client) {
-    client.close();
-  }
 
 });
