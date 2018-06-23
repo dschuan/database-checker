@@ -21,7 +21,6 @@ class GenerateSchema extends Component{
   }
   clickHandler() {
     this.setState({loading: true, schemaGenerated: false, error: false});
-    console.log(this.credentials);
     fetch('/api/create-schema', {
       method: 'POST',
       headers: {

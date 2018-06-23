@@ -6,7 +6,7 @@ var logger = require('morgan');
 
 var indexRouter = require('./routes/index');
 var schemaRouter = require('./routes/create-schema');
-
+var getSchemaRouter = require('./routes/get-schema');
 var app = express();
 
 // view engine setup
@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', schemaRouter);
-
+app.use('/api', getSchemaRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
