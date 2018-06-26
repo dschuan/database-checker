@@ -12,7 +12,7 @@ const renderMenu = (keys) => {
 const renderReset = () => {
   if (sessionStorage.getItem('credentials')) {
     return (
-      <div className='Reset Credentials'>
+      <div className='reset'>
         <Link to='/'> Reset </Link>
       </div>
     )

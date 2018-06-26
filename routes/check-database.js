@@ -9,6 +9,8 @@ router.post('/check-database', function(req, res, next) {
   CheckDatabase(credentials).then(function(callback) {
     console.log(callback);
     res.send(callback);
+  }).catch(error => {
+    res.send(error);
   })
 });
 

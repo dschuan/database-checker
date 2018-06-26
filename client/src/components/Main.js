@@ -4,6 +4,7 @@ import Home from './Home';
 import HasCredentials from './HasCredentials';
 import GenerateSchema from './containers/GenerateSchema';
 import DisplaySchema from './containers/DisplaySchema';
+import CheckDatabase from './containers/CheckDatabase';
 
 const Main = () => {
   return (
@@ -11,7 +12,7 @@ const Main = () => {
       <Route exact path='/' component={Home} />
       <HasCredentials path='/generate-schema' component={GenerateSchema} />
       <HasCredentials path='/view-schema' component={DisplaySchema} />
-      <HasCredentials path='/check-database' component={Home} />
+      <HasCredentials path='/check-database' component={CheckDatabase} />
     </Switch>
 
   )

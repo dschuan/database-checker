@@ -16,9 +16,7 @@ class GenerateSchema extends Component{
       error: false
     }
   }
-  componentDidMount(){
 
-  }
   clickHandler() {
     this.setState({loading: true, schemaGenerated: false, error: false});
     fetch('/api/create-schema', {
@@ -29,6 +27,7 @@ class GenerateSchema extends Component{
       },
       body: this.credentials,
     })
+    .then(res => res.json())
     .then(data => {
       console.log(data);
       this.setState({loading: false, schemaGenerated: true});

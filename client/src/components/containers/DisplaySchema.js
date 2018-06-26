@@ -7,7 +7,7 @@ class DisplaySchema extends Component{
   constructor(props) {
     super(props);
     this.credentials = sessionStorage.getItem('credentials');
-    this.state = {schemas: []};
+    this.state = {schemas: [], error:''};
   }
   componentDidMount() {
     if (this.credentials) {
@@ -17,8 +17,18 @@ class DisplaySchema extends Component{
     .then(res => res.json())
     .then(schemas => {
       this.setState({schemas: schemas.data});
+    }).catch(err => {
+      this.setState({error: err.stack});
     });
 
+  }
+  renderError() {
+    return(
+      <div>
+        <h1>Error</h1>
+        <p> {this.state.error} </p>
+      </div>
+    )
   }
   renderSchemas() {
       if (this.state.schemas.length > 0){
@@ -39,7 +49,7 @@ class DisplaySchema extends Component{
   render() {
     return (
       <div className='schema-list'>
-        {this.renderSchemas()}
+        {this.state.error.length === 0 ? this.renderSchemas() : this.renderError()}
       </div>
     )
   }

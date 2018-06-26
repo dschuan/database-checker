@@ -58,7 +58,8 @@ module.exports = (async (credentials) => {
     await exportResults('./res', 'documents');
   } catch (error) {
     if (error) {
-        documents = error;
+      throw error;
+      documents = error;
     }
 
   } finally {
