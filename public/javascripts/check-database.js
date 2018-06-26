@@ -3,7 +3,7 @@ const SimpleSchema = require('simpl-schema').default;
 const MongoClient = require('mongodb').MongoClient;
 const fs = require('fs');
 
-const dbData = require('./get-database-info');
+const renderUrl = require('./renderUrl');
 const getCollectionName = require('./handle-collection-data');
 const getSchema = require('./format-schema').toSchema;
 
@@ -37,9 +37,9 @@ const exportResults = (async (dir, results) => {
     console.log('Results saved');
   });
 });
-module.exports = (async () => {
-  const url = dbData.url;
-  const dbName = dbData.dbName;
+module.exports = (async (credentials) => {
+  const url = renderUrl(credentials);
+  const dbName = credentials.name;
   let client;
   let documents = {date: new Date().toISOString()};
   try {
@@ -58,10 +58,14 @@ module.exports = (async () => {
     await exportResults('./res', 'documents');
   } catch (error) {
     if (error) {
-      console.log(error.stack);
+        documents = error;
     }
+
+  } finally {
+    if (client) {
+      client.close();
+    };
+    return documents;
   }
-  if (client) {
-    client.close();
-  }
+
 });

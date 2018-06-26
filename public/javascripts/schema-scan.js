@@ -82,7 +82,7 @@ const returnKeys = (schema) => {
 };
 
 // contains the function that executes the Map Reduce function on a collection,
-// then builds the schema
+// then builds the schema. Use this map reduce function to edit the schema if needed
 const buildSchemaFromCollection = async function(db, collectionName) {
   let mr = await db.collection(collectionName).mapReduce(
     function() {
@@ -191,7 +191,7 @@ module.exports = (async function(credentials) {
   const pathName = './schemas';
   let client;
   let collections = [];
-
+  let res;
   try {
     client = await MongoClient.connect(url, {useNewUrlParser: true});
 
@@ -209,14 +209,15 @@ module.exports = (async function(credentials) {
     };
     // const test = await
     // buildSchemaFromCollection(db, 'rocketchat_message');
+    res = 'complete'
   } catch (err) {
     throw err;
-    console.log(err.stack);
+    res = `Error:${err.stack}`
   } finally {
     if (client) {
       client.close();
     }
-    return 'complete';
+    return res;
   }
 
 
