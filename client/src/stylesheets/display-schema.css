@@ -1,0 +1,19 @@
+code {
+  display: flex;
+  align-content: left;
+  text-align: left;
+}
+
+h2 {
+  text-transform: capitalize;
+}
+.panel-default {
+  width: 100%;
+  align-content: center;
+}
+
+.schema-list {
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+}

@@ -15,7 +15,9 @@ class App extends Component {
       <BrowserRouter>
         <div className="App">
           <MainMenu menu = {menuKeys}/>
-          <Main routes={menuKeys}/>
+          <div className="body">
+            <Main routes={menuKeys}/>
+          </div>
         </div>
       </BrowserRouter>
     );
