@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 const formatToSchema = (currentKey, into, target) => {
   for (let i in into) {
     if (into.hasOwnProperty(i)) {
@@ -67,8 +69,8 @@ module.exports.buildSchema = (schema) => {
   return res;
 };
 
-module.exports.toSchema = (colName) => {
-  let schema = require(`../schemas/${colName}.json`);
+module.exports.toSchema = (colName, path) => {
+  let schema = JSON.parse(fs.readFileSync(`${path}/${colName}.json`, 'utf8'));
   let res = {};
   formatToSchema('', schema, res);
   for (let key in res) {

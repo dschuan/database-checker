@@ -27,7 +27,6 @@ class GenerateSchema extends Component{
       },
       body: this.credentials,
     })
-    .then(res => res.json())
     .then(data => {
       console.log(data);
       this.setState({loading: false, schemaGenerated: true});

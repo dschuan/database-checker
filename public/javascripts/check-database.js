@@ -7,9 +7,8 @@ const renderUrl = require('./renderUrl');
 const getCollectionName = require('./handle-collection-data');
 const getSchema = require('./format-schema').toSchema;
 
-const validateFromSchema = (async (db, colName) => {
-  console.log(`Validating ${colName}...`);
-  let schema = getSchema(colName);
+const validateFromSchema = (async (db, path, colName) => {
+  let schema = getSchema(colName, path);
   schema = new SimpleSchema(schema).newContext();
   const col = db.collection(colName);
   const r = await col.find({}).toArray();
@@ -22,7 +21,7 @@ const validateFromSchema = (async (db, colName) => {
     }
     return res;
   });
-  console.log('Complete');
+  console.log(`${colName} complete`);
   return results;
 });
 
@@ -40,22 +39,23 @@ const exportResults = (async (dir, results) => {
 module.exports = (async (credentials) => {
   const url = renderUrl(credentials);
   const dbName = credentials.name;
+  const path = './schemas';
+
   let client;
   let documents = {date: new Date().toISOString()};
+
   try {
     client = await MongoClient.connect(url, {useNewUrlParser: true});
 
     const db = client.db(dbName);
-
     collections = await db.command({'listCollections': 1});
     collections = getCollectionName(collections);
     // console.log(collections);
     for (let i = 0; i < collections.length; i++) {
-      const res = await validateFromSchema(db, collections[i]);
+      const res = await validateFromSchema(db, path, collections[i]);
       documents[collections[i]] = res;
     }
-    console.log(documents);
-    await exportResults('./res', 'documents');
+    await exportResults('./res', documents);
   } catch (error) {
     if (error) {
       throw error;
@@ -66,6 +66,7 @@ module.exports = (async (credentials) => {
     if (client) {
       client.close();
     };
+    console.log(documents);
     return documents;
   }
 

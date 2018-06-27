@@ -7,8 +7,10 @@ const router = express.Router();
 router.post('/check-database', function(req, res, next) {
   const credentials = req.body;
   CheckDatabase(credentials).then(function(callback) {
-    console.log(callback);
-    res.send(callback);
+    let dat = {}
+    const keys = Object.keys(callback);
+    dat['keys'] = keys;
+    res.send(dat);
   }).catch(error => {
     res.send(error);
   })

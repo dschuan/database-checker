@@ -128,6 +128,8 @@ const buildSchemaFromCollection = async function(db, collectionName) {
           });
           const output = val[0];
           return 'Array.' + output;
+          //return 'Array.' + output; Use this line when schema validation
+          //accepts array object functionality
         } else {
           if (typeof val === 'function') {
             return val.constructor.name;

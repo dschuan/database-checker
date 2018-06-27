@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Schema from '../Schema';
-
+import Loading from '../Loading';
 import '../../stylesheets/display-schema.css';
 
 class DisplaySchema extends Component{
@@ -43,7 +43,7 @@ class DisplaySchema extends Component{
           return <div><Schema title={title} content={content} /></div>
       })
     } else {
-      return 'Loading';
+      return <Loading />;
     }
   }
   render() {
