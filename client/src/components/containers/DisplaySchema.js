@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import Schema from '../Schema';
+import Schema from './Schema';
 import Loading from '../Loading';
 import '../../stylesheets/display-schema.css';
 
@@ -39,7 +39,7 @@ class DisplaySchema extends Component{
           const title = key.toString();
           const field = schema[key];
           const content = typeof field === 'object' && Object.keys(field).length > 0 ?
-            JSON.stringify(schema[key], null, 2) : 'None';
+            JSON.stringify(schema[key], null, 2) : '';
           return <div><Schema title={title} content={content} /></div>
       })
     } else {

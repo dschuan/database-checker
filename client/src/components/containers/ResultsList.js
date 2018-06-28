@@ -7,7 +7,7 @@ class ResultsList extends Component{
       const editedKey = key.replace(/_/g, ' ');
       return (
         <Panel>
-          <Panel.Heading><h2>{key}</h2></Panel.Heading>
+          <Panel.Heading><h2>{editedKey}</h2></Panel.Heading>
         </Panel>
       )
     })
