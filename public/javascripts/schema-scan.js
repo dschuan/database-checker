@@ -112,7 +112,7 @@ const buildSchemaFromCollection = async function(db, collectionName) {
 
           getSubField(this[key], key);
         } else {
-          emit(key, null);
+          emit(key, 'object');
         }
       }
     },
@@ -134,11 +134,11 @@ const buildSchemaFromCollection = async function(db, collectionName) {
           if (typeof val === 'function') {
             return val.constructor.name;
           } else {
-            return typeof val;
+            return val;
           }
         }
       } else {
-        return typeof val;
+        return val;
       }
     },
     {'out': 'rocketchat_message' + '_keys'}
