@@ -13,7 +13,7 @@ class DisplaySchema extends Component{
     if (this.credentials) {
       this.credentials = JSON.parse(this.credentials);
     }
-    fetch('/api/get-schema')
+    fetch('/api/get-schema-list')
     .then(res => res.json())
     .then(schemas => {
       this.setState({schemas: schemas.data});
@@ -34,13 +34,7 @@ class DisplaySchema extends Component{
       if (this.state.schemas.length > 0){
         const schemas = this.state.schemas;
         return schemas.map((schema) => {
-          console.log();
-          const key = Object.keys(schema)[0];
-          const title = key.toString();
-          const field = schema[key];
-          const content = typeof field === 'object' && Object.keys(field).length > 0 ?
-            JSON.stringify(schema[key], null, 2) : '';
-          return <div><Schema title={title} content={content} /></div>
+          return <div><Schema schema={schema} /></div>
       })
     } else {
       return <Loading />;
@@ -50,6 +44,7 @@ class DisplaySchema extends Component{
     return (
       <div className='schema-list'>
         {this.state.error.length === 0 ? this.renderSchemas() : this.renderError()}
+        {this.renderCurrent}
       </div>
     )
   }

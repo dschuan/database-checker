@@ -1,10 +1,5 @@
-code {
-  display: flex;
-  align-content: left;
-  text-align: left;
-}
 
-h2 {
+p {
   text-transform: capitalize;
 }
 .panel-default {
@@ -14,6 +9,62 @@ h2 {
 
 .schema-list {
   display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.schema-default {
+  display: flex;
   flex-direction: column;
-  align-content: center;
+  height: 200px;
+  width: 20vw;
+  margin: 20px;
+  word-wrap: normal;
+  transition: 1s;
+}
+.schema-default .click-space {
+  cursor: pointer;
+}
+
+.schema-default .click-space :hover{
+  background-color: #c0c5ce;
+  transition: 0.3s;
+}
+
+.schema-default .click-space :active{
+  background-color: #a7adba;
+}
+
+.schema-active {
+  display: flex;
+  flex-direction: column;
+  width: 30vw;
+  flex-wrap: wrap;
+  transition: 1s;
+}
+.schema-active .click-space {
+  cursor: pointer;
+}
+
+.schema-active .click-space :hover{
+  background-color: #c0c5ce;
+  transition: 0.3s;
+}
+
+.schema-active .click-space :active{
+  background-color: #a7adba;
+}
+.schema-active .field-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.schema-active .field-list .field {
+  display: flex;
+  margin: 20px;
+  flex-direction: column;
+  flex-wrap: wrap;
 }

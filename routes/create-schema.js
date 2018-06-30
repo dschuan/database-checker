@@ -9,6 +9,8 @@ router.post('/create-schema', function(req, res, next) {
   SchemaScan(credentials).then(function(callback) {
     console.log(callback);
     res.send(callback);
+  }).catch((err) => {
+    res.send('Error');
   })
 });
 
