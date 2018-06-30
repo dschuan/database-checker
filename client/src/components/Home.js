@@ -6,6 +6,7 @@ class Home extends Component{
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.state = {submitted: false};
   }
   handleSubmit(e) {
     e.preventDefault();
@@ -17,7 +18,12 @@ class Home extends Component{
     }
     console.log(JSON.stringify(credentials));
     sessionStorage.setItem('credentials', JSON.stringify(credentials));
-
+    this.setState({submitted: true});
+  }
+  loadConfirmation() {
+    if (this.state.submitted) {
+      return <p> Database information saved! </p>
+    }
   }
   render() {
     return (
@@ -32,7 +38,7 @@ class Home extends Component{
           <FormGroup bsSize='large' controlId= 'database-name'>
             <ControlLabel> Key in the name of your database (Default: meteor):</ControlLabel>
             <FormControl inputRef={ref => {this.name = ref}}
-             placeholder='/meteor'/>
+             placeholder='meteor'/>
           </FormGroup>
 
           <FormGroup bsSize='large' controlId= 'username'>
@@ -49,6 +55,7 @@ class Home extends Component{
 
           <Button type='submit'> Submit </Button>
         </form>
+        {this.loadConfirmation()}
       </div>
     )
   }
