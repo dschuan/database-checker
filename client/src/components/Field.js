@@ -8,7 +8,9 @@ class Field extends Component{
   constructor(props) {
     super(props);
     this.toggleSwitch = this.toggleSwitch.bind(this);
+    this.editInput = this.editInput.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
+    this.showEditor = this.showEditor.bind(this);
     if (this.props.schema) {
       const schema = JSON.parse(this.props.schema);
       const {type, optional} = schema;
@@ -19,7 +21,9 @@ class Field extends Component{
     } else {
       this.state = {
         switched: false,
-        type: ''
+        type: '',
+        showInputEdit: false,
+        showEditButton: false
       }
     }
 
@@ -37,11 +41,26 @@ class Field extends Component{
     }
     this.props.editSchema(JSON.stringify(data));
   }
+
+  showEditorIcon() {
+    this.setState({showEditButton: true});
+  }
+
+  editInput() {
+    this.setState({showInputEdit: !this.state.showInputEdit});
+
+  }
+  renderTypeField() {
+    return this.state.showInputEdit ? (
+      <p> Show Input </p>
+    ) : (
+      <p> Type: {this.props.field} </p>
+    )
+  }
   render() {
-    const {field} = this.props;
     return (
-      <div className='Field'>
-        <p> Type: {field} </p>
+      <div className='Field' onmouseover={this.showEditorIcon}>
+        {this.state.showEditorIcon ? <Button bsSize='xsmall'>Edit</Button> : ''}
         <label htmlFor='optional'> Is optional: </label>
         <Toggle id='optional' onChange={this.toggleSwitch} defaultChecked={this.state.switched} />
         <Button bsSize='xsmall' onClick={this.clickHandler}> <Glyphicon glyph='floppy-save' /> </Button>
