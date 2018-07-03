@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Well} from 'react-bootstrap';
+import {Button, Well} from 'react-bootstrap';
 import Field from '../Field';
 import Loading from '../Loading';
 import '../../stylesheets/display-schema.css';
@@ -9,7 +9,8 @@ class Schema extends Component {
     super(props);
     this.editSchema = this.editSchema.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
-    this.state = {schema: '', active: false, loading: false};
+    this.updateSchema = this.updateSchema.bind(this);
+    this.state = {schema: '', active: false, loading: false, saving: false};
   }
   editSchema = (result) => {
     const res = JSON.parse(result);
@@ -33,15 +34,13 @@ class Schema extends Component {
 
   }
   renderSchema() {
-    console.log('rendering' + this.state.active + typeof this.state.schema);
     if (this.state.active && typeof this.state.schema === 'object') {
       const fields = Object.keys(this.state.schema);
       if (fields.length === 0) {
         return <p> This schema is empty :( </p>
       } else {
         return fields.map((field) => {
-          console.log(this.state.schema[field])
-          return <Field field={field} editSchema={this.editSchema} schema={JSON.stringify(this.state.schema[field])} />
+          return <Field field={field} key={`${this.props.schema}${field}`} editSchema={this.editSchema} schema={JSON.stringify(this.state.schema[field])} />
         })
       }
 
@@ -61,6 +60,27 @@ class Schema extends Component {
       return 'schema-default';
     }
   }
+
+  updateSchema() {
+    this.setState({saving: true});
+    const res = {
+      filepath: this.props.schema,
+      schema: this.state.schema,
+    }
+    console.log(res)
+    fetch('/api/edit-schema', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(res)
+    })
+    .then(data => {
+      console.log(data);
+      this.setState({saving: false});
+    })
+  }
   render()
     {
       let title = this.props.schema.replace('./schemas/', '');
@@ -74,6 +94,10 @@ class Schema extends Component {
           <div className='field-list'>
             {this.renderSchema()}
             {this.renderLoading()}
+          </div>
+          <div className='submit-button'>
+            {this.state.saving ? <p>Saving...</p> : ''}
+            {this.state.active ? <Button block={true} disabled={this.state.saving} onClick={this.updateSchema}> Save </Button> : ''}
           </div>
         </Well>
     )}

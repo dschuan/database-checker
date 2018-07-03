@@ -18,7 +18,7 @@ p {
 .schema-default {
   display: flex;
   flex-direction: column;
-  height: 200px;
+  min-height: 200px;
   width: 20vw;
   margin: 20px;
   word-wrap: normal;
@@ -26,11 +26,12 @@ p {
 }
 .schema-default .click-space {
   cursor: pointer;
+  word-wrap: break-word;
 }
 
 .schema-default .click-space :hover{
   background-color: #c0c5ce;
-  transition: 0.3s;
+  transition: 0.2s;
 }
 
 .schema-default .click-space :active{
@@ -40,9 +41,10 @@ p {
 .schema-active {
   display: flex;
   flex-direction: column;
-  width: 30vw;
+  word-wrap: break-word;
+  width: 40vw;
   flex-wrap: wrap;
-  transition: 1s;
+  transition: 0.4s;
 }
 .schema-active .click-space {
   cursor: pointer;
@@ -50,7 +52,7 @@ p {
 
 .schema-active .click-space :hover{
   background-color: #c0c5ce;
-  transition: 0.3s;
+  transition: 0.1s;
 }
 
 .schema-active .click-space :active{
@@ -60,11 +62,46 @@ p {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
+  width: 100%;
 }
-.schema-active .field-list .field {
+.schema-active .field-list .submit-button {
+  width: 50%;
+
+}
+
+.Field {
   display: flex;
-  margin: 20px;
   flex-direction: column;
-  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 43%;
+  margin: 3%;
+}
+
+.Field .Header {
+  display:flex;
+  padding: 2%;
+  flex-direction: row;
+  justify-content: space-between;
+  border-style: solid;
+  border-width: 0 0 2px 0;
+  border-color: #65737e;
+}
+
+.Field .Type {
+  display: flex;
+  padding: 2%;
+  width: 100%;
+  margin-top: 3%;
+  text-align: left;
+}
+.Field .Optional {
+  display:flex;
+  padding: 2%;
+  flex-direction:row;
+  justify-content: space-between;
+  margin-top: 3%;
+}
+label {
+  text-align: left;
 }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Glyphicon} from 'react-bootstrap';
+import {Button, FormGroup, FormControl, Glyphicon} from 'react-bootstrap';
 import Toggle from 'react-toggle';
 import 'react-toggle/style.css';
 import '../stylesheets/display-schema.css';
@@ -9,19 +9,22 @@ class Field extends Component{
     super(props);
     this.toggleSwitch = this.toggleSwitch.bind(this);
     this.editInput = this.editInput.bind(this);
-    this.clickHandler = this.clickHandler.bind(this);
-    this.showEditor = this.showEditor.bind(this);
+    this.submitHandler = this.submitHandler.bind(this);
+    this.showEditorIcon = this.showEditorIcon.bind(this);
+    this.hideEditorIcon = this.hideEditorIcon.bind(this);
     if (this.props.schema) {
       const schema = JSON.parse(this.props.schema);
-      const {type, optional} = schema;
       this.state = {
-        switched: optional,
-        type: type
+        schema: schema,
+        showInputEdit: false,
+        showEditButton: false
       }
     } else {
       this.state = {
-        switched: false,
-        type: '',
+        schema: {
+          optional: false,
+          type: '',
+        },
         showInputEdit: false,
         showEditButton: false
       }
@@ -29,21 +32,33 @@ class Field extends Component{
 
   }
   toggleSwitch() {
-    const curr = this.state.switched;
-    this.setState({switched: !curr});
+    const curr = this.state.schema.optional;
+    let {schema} = this.state;
+    schema.optional = !curr;
+    this.setState({schema});
+    let data = {field: this.props.field};
+    data['schema'] = schema;
+    console.log(data);
+    this.props.editSchema(JSON.stringify(data));
 
   }
-  clickHandler() {
-    let data = {};
-    data[this.props.field] = {
-      optional: this.state.switched,
-      type: this.state.type
-    }
+  submitHandler(e) {
+    e.preventDefault();
+    let {schema} = this.state;
+    schema.type = this.type.value;
+    this.setState({schema:schema, showInputEdit: false});
+    let data = {field: this.props.field};
+    data['schema'] = schema;
     this.props.editSchema(JSON.stringify(data));
+
   }
 
   showEditorIcon() {
     this.setState({showEditButton: true});
+  }
+
+  hideEditorIcon() {
+    this.setState({showEditButton: false});
   }
 
   editInput() {
@@ -52,18 +67,26 @@ class Field extends Component{
   }
   renderTypeField() {
     return this.state.showInputEdit ? (
-      <p> Show Input </p>
+      <form onSubmit={this.submitHandler}>
+        <FormGroup controlId="inputText"></FormGroup>
+        <FormControl type="text" defaultValue={this.state.schema.type} inputRef={ref => this.type = ref}/>
+      </form>
     ) : (
-      <p> Type: {this.props.field} </p>
+      <span> Type: {this.state.schema.type} </span>
     )
   }
   render() {
     return (
-      <div className='Field' onmouseover={this.showEditorIcon}>
-        {this.state.showEditorIcon ? <Button bsSize='xsmall'>Edit</Button> : ''}
-        <label htmlFor='optional'> Is optional: </label>
-        <Toggle id='optional' onChange={this.toggleSwitch} defaultChecked={this.state.switched} />
-        <Button bsSize='xsmall' onClick={this.clickHandler}> <Glyphicon glyph='floppy-save' /> </Button>
+      <div className='Field' onMouseOver={this.showEditorIcon} onMouseLeave={this.hideEditorIcon}>
+        <div className='Header'>
+          <h5>Field: {this.props.field.toUpperCase()}</h5>
+          {this.state.showEditButton ? <Button bsSize='large' onClick={this.editInput}><Glyphicon glyph='pencil'/></Button> : ''}
+        </div>
+        <div className='Type'>{this.renderTypeField()}</div>
+        <div className='Optional'>
+          <label htmlFor='optional'> Is optional: </label>
+          <Toggle id='optional' onChange={this.toggleSwitch} defaultChecked={this.state.schema.optional} />
+        </div>
       </div>
     )}
 }

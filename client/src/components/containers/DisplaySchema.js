@@ -34,7 +34,7 @@ class DisplaySchema extends Component{
       if (this.state.schemas.length > 0){
         const schemas = this.state.schemas;
         return schemas.map((schema) => {
-          return <div><Schema schema={schema} /></div>
+          return <Schema key={schema} schema={schema} />
       })
     } else {
       return <Loading />;

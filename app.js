@@ -7,6 +7,7 @@ const logger = require('morgan');
 const indexRouter = require('./routes/index');
 const schemaRouter = require('./routes/create-schema');
 const getSchemaRouter = require('./routes/get-schema');
+const editSchemaRouter = require('./routes/edit-schema');
 const checkDbRouter = require('./routes/check-database');
 
 const app = express();
@@ -23,6 +24,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/api', schemaRouter);
 app.use('/api', getSchemaRouter);
+app.use('/api', editSchemaRouter);
 app.use('/api', checkDbRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
