@@ -4,7 +4,6 @@ const router = express.Router();
 
 router.post('/edit-schema', (req, res, next) => {
   const data = req.body;
-  console.log(data);
   SaveSchema(data).then((callback) => {
     console.log(callback);
     res.send(callback);

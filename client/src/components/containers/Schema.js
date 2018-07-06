@@ -10,7 +10,7 @@ class Schema extends Component {
     this.editSchema = this.editSchema.bind(this);
     this.clickHandler = this.clickHandler.bind(this);
     this.updateSchema = this.updateSchema.bind(this);
-    this.state = {schema: '', active: false, loading: false, saving: false};
+    this.state = {schema: '', active: false, loading: false, saving: false, confirmation: ''};
   }
   editSchema = (result) => {
     const res = JSON.parse(result);
@@ -79,6 +79,12 @@ class Schema extends Component {
     .then(data => {
       console.log(data);
       this.setState({saving: false});
+      if (data.ok) {
+        this.setState({confirmation: ''});
+      } else {
+        this.setState({confirmation: 'Error, try again or contact an administrator'});
+      }
+
     })
   }
   render()
@@ -94,6 +100,7 @@ class Schema extends Component {
           <div className='field-list'>
             {this.renderSchema()}
             {this.renderLoading()}
+            {this.state.confirmation}
           </div>
           <div className='submit-button'>
             {this.state.saving ? <p>Saving...</p> : ''}

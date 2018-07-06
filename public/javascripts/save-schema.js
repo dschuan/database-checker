@@ -1,6 +1,6 @@
 const fs = require('fs');
 
-module.exports = (data) => {
+module.exports = (async (data) => {
   let {filepath, schema} = data;
   const fileExists = fs.existsSync(filepath);
   console.log(fs.existsSync(filepath))
@@ -10,7 +10,6 @@ module.exports = (data) => {
 
   if (fileExists) {
     fs.writeFileSync(filepath, schema, {flag: 'w'});
-    console.log('success');
     return 'success';
   }
-}
+})
