@@ -10,7 +10,7 @@ class HasCredentials extends Component {
     if (this.credentials) {
       const credentials = this.credentials;
       return (
-        <Route exact path={this.props.path}
+        <Route exact={this.props.exact} path={this.props.path}
         render={(props) => (
           React.createElement(this.props.component, {
             ...props, credentials

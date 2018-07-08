@@ -5,7 +5,7 @@ import Main from './components/Main';
 import './App.css';
 
 const menuKeys = [
-  'Generate Schema',
+  'Schema Wizard',
   'View Schema',
   'Check Database'
 ]

@@ -1,0 +1,7 @@
+ul.nav.nav-tabs li a {
+  color: #65737e;
+}
+
+ul.nav.nav-tabs li a:focus {
+  border: 0;
+}
