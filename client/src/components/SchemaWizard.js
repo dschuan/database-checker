@@ -6,6 +6,7 @@ import {Switch} from 'react-router-dom';
 import HasCredentials from './HasCredentials';
 import GenerateSchema from './containers/GenerateSchema';
 import MigrationCheck from './containers/MigrationCheck';
+import RocketChatDetails from './RocketChatDetails';
 import '../stylesheets/schema-wizard.css';
 
 class SchemaWizard extends Component {
@@ -30,6 +31,7 @@ class SchemaWizard extends Component {
           </LinkContainer>
         </Nav>
         <Switch>
+          <HasCredentials path='/' exact={true} component={RocketChatDetails} />
           <HasCredentials path='/schema-wizard/generate-schema' component={GenerateSchema} />
           <HasCredentials path='/schema-wizard/migration-check' component={MigrationCheck} />
         </Switch>

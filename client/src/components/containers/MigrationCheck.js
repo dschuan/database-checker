@@ -5,7 +5,7 @@ import Loading from '../Loading';
 class MigrationCheck extends Component{
   constructor(props) {
     super(props);
-    this.credentials = sessionStorage.getItem('credentials');
+    this.rocketInfo = sessionStorage.getItem('rocketinfo');
     this.clickHandler = this.clickHandler.bind(this);
     this.state = {
       loading: false,
@@ -15,7 +15,8 @@ class MigrationCheck extends Component{
   }
 
   clickHandler() {
-    console.log(this.credentials);
+    console.log(this.rocketInfo);
+
   }
 
   renderLoading() {

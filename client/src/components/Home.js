@@ -42,16 +42,18 @@ class Home extends Component{
           </FormGroup>
 
           <FormGroup bsSize='large' controlId= 'username'>
-            <ControlLabel> Key in your username:</ControlLabel>
+            <ControlLabel> Key in your mongodb username:</ControlLabel>
             <FormControl inputRef={ref => {this.user = ref}}
              placeholder='user123'/>
           </FormGroup>
 
           <FormGroup bsSize='large' controlId= 'password'>
-            <ControlLabel> Key in your password:</ControlLabel>
+            <ControlLabel> Key in your mongodb password:</ControlLabel>
             <FormControl inputRef={ref => {this.password = ref}}
              type='password' placeholder='Password here'/>
           </FormGroup>
+
+
 
           <Button type='submit'> Submit </Button>
         </form>
