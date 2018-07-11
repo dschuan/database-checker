@@ -1,15 +1,14 @@
 const express = require('express');
-const CheckDatabase = require('../public/javascripts/check-database');
+const CheckVersion = require('../public/javascripts/migration-wizard').checkVersion;
 
 const router = express.Router();
 
 /* GET users listing. */
 router.post('/check-migration', function(req, res, next) {
-  const credentials = req.body;
+  const credentials = JSON.parse(req.body.credentials);
+  const rocketInfo = JSON.parse(req.body.rocketInfo);
+  CheckVersion(rocketInfo, credentials);
   res.send('true');
-  }).catch(error => {
-    res.send(error);
   })
-});
 
 module.exports = router;

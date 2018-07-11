@@ -19,13 +19,13 @@ class RocketChatDetails extends Component{
   }
   loadConfirmation() {
     if (this.state.submitted) {
-      return <p> Database information saved! </p>
+      return <p> Url saved! </p>
     }
   }
   render() {
     return (
       <div className='home'>
-        <form>
+        <form onSubmit={this.handleSubmit}>
 
           <FormGroup bsSize='large' controlId= 'username'>
             <ControlLabel> Key in your Rocket.Chat url:</ControlLabel>

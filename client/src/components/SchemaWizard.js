@@ -12,7 +12,7 @@ import '../stylesheets/schema-wizard.css';
 class SchemaWizard extends Component {
   constructor(props) {
     super(props);
-    this.state = { tabSelected: 0};
+    this.state = { tabSelected: -1};
     this.handleSelect = this.handleSelect.bind(this);
   }
   handleSelect(e) {
@@ -23,15 +23,18 @@ class SchemaWizard extends Component {
     return (
       <div>
         <Nav bsStyle="tabs" activeKey={this.state.tabSelected} onSelect={this.handleSelect}>
+          <LinkContainer to='/schema-wizard'>
+            <NavItem eventKey="1">Home </NavItem>
+          </LinkContainer>
           <LinkContainer to='/schema-wizard/generate-schema'>
-            <NavItem eventKey="1">Generate Schema </NavItem>
+            <NavItem eventKey="2">Generate Schema </NavItem>
           </LinkContainer>
           <LinkContainer to='/schema-wizard/migration-check'>
-            <NavItem eventKey="2">Migration Check </NavItem>
+            <NavItem eventKey="3">Migration Check </NavItem>
           </LinkContainer>
         </Nav>
         <Switch>
-          <HasCredentials path='/' exact={true} component={RocketChatDetails} />
+          <HasCredentials path='/schema-wizard' exact={true} component={RocketChatDetails} />
           <HasCredentials path='/schema-wizard/generate-schema' component={GenerateSchema} />
           <HasCredentials path='/schema-wizard/migration-check' component={MigrationCheck} />
         </Switch>
