@@ -28,7 +28,7 @@ class MigrationCheck extends Component{
     })
     .then(res => res.text())
     .then(data => {
-      if (data === 'true') {
+      if (typeof data === 'string') {
         this.setState({loading: false, error: false, isMigrated: data});
       } else {
         this.setState({loading: false, error:true})

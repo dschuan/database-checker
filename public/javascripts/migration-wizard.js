@@ -2,6 +2,8 @@ const axios = require('axios');
 const renderUrl = require('./renderUrl');
 const MongoClient = require('mongodb').MongoClient;
 
+const GitHubHandler = require('./github-api-handler').getLatestMigration;
+
 const getDBVer = (async (dbData) => {
   const url = renderUrl(dbData);
   const dbName = dbData.name;
@@ -25,11 +27,7 @@ const getDBVer = (async (dbData) => {
     return res;
   }
 });
-const listMigrationVer = (async (rocketVer) => {
-  const url = `https://api.github.com/repos/RocketChat/Rocket.Chat/trees`;
-  const migPromise = await axios(url);
-  console.log(migPromise.data);
-})
+
 const getMigratedVer = (async (info) => {
   const {url} = info;
   let res;
@@ -37,20 +35,23 @@ const getMigratedVer = (async (info) => {
   const verPromise = await axios(`${url}/api/v1/info`);
   res = verPromise.data.info.version;
   res = res.split('-')[0];
-  await listMigrationVer(res);
+  res = res.replace('v', '');
+  const githubUrl = `https://api.github.com/repos/RocketChat/Rocket.Chat/contents/server/startup/migrations?ref=${res}`;
+  res = await GitHubHandler(githubUrl);
+
   return res;
 })
 module.exports.checkVersion = (async (info, dbData) => {
   const {user, password} = info;
+  let res = null;
   try {
     const dbVer = await getDBVer(dbData);
-    console.log(dbVer);
     const migratedVer = await getMigratedVer(info);
-    console.log(migratedVer);
+    res = (dbVer === migratedVer) ? 'true' : 'false'
   } catch (err) {
     console.log(err.message);
   }
    finally {
-     return true;
+     return res;
    }
 })
