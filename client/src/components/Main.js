@@ -2,9 +2,9 @@ import React from 'react';
 import {Switch, Route} from 'react-router-dom';
 import Home from './Home';
 import HasCredentials from './HasCredentials';
-import SchemaWizard from './SchemaWizard';
+import SchemaWizard from './pages/SchemaWizard';
 import DisplaySchema from './containers/DisplaySchema';
-import CheckDatabase from './containers/CheckDatabase';
+import DatabaseChecker from './pages/DatabaseChecker';
 
 const Main = () => {
   return (
@@ -12,7 +12,7 @@ const Main = () => {
       <Route exact path='/' component={Home} />
       <HasCredentials path='/schema-wizard' exact={false} component={SchemaWizard} />
       <HasCredentials path='/view-schema' exact={true} component={DisplaySchema} />
-      <HasCredentials path='/check-database' exact={true} component={CheckDatabase} />
+      <HasCredentials path='/check-database' exact={true} component={DatabaseChecker} />
     </Switch>
 
   )

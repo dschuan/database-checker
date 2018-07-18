@@ -104,10 +104,10 @@ const buildSchemaFromCollection = async function(db, collectionName) {
       };
       for (let key in this) {
         if (this[key]) {
-          if (this[key].constructor.name) {
-            emit(key, this[key].constructor.name);
+          if (Array.isArray(this[key])) {
+            emit(key, 'Array');
           } else {
-            emit(key, this[key]);
+            emit(key, typeof this[key]);
           }
 
           getSubField(this[key], key);

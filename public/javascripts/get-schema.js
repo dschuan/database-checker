@@ -1,9 +1,7 @@
 const fs = require('fs');
 
 const getFile = (async (file) => {
-  console.log(file);
   const obj = JSON.parse(fs.readFileSync(file, 'utf8'));
-  console.log(obj);
   return obj;
 })
 module.exports.getSchemaList = (async () => {
@@ -15,7 +13,6 @@ module.exports.getSchemaList = (async () => {
 })
 
 module.exports.getSchema = (async (filepath) => {
-  console.log(filepath);
   let file = await getFile(filepath);
   return file;
 })

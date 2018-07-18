@@ -65,9 +65,8 @@ module.exports = (async (credentials) => {
   } finally {
     if (client) {
       client.close();
+      return 'success';
     };
-    console.log(documents);
-    return documents;
   }
 
 });
